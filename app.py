@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, jsonify
+from flask import Flask, request, render_template, jsonify, redirect
 
 import requests
 from googletrans import Translator
@@ -10,14 +10,14 @@ from urllib.parse import urlparse
 from uuid import uuid4
 from scipy.spatial import distance
 
+import os
 import openai
-openai.api_key = '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'
+openai.api_key = os.environ["openai_api"]
 from scipy.spatial import distance
 import pandas as pd
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import tiktoken
 from time import sleep
-import os
 
 tokenizer = tiktoken.get_encoding('p50k_base')
 
@@ -84,10 +84,14 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('base.html')
+    #return render_template('base.html')
+    message = request.args.get('message')
+    if message == None:
+        message = ''
+    return render_template('base.html', output_text=message)
 
 
-@app.route('/submit', methods=['POST'])
+@app.route('/submit', methods=["POST"])
 def submit():
     # global domain
 
@@ -189,7 +193,10 @@ def submit():
     
     print(len(vectors), len(all_texts))
 
-    return render_template('base.html', output_text="Your Chatbot is now ready! Click chat icon on bottom right to get started")
+    message = "Your Chatbot is now ready! Click the chat icon on bottom right to get started"
+    
+    # return render_template('base.html', output_text="Your Chatbot is now ready! Click the chat icon on bottom right to get started")
+    return redirect('/?message=' + message)
 
 
 @app.route('/predict', methods=['POST'])
@@ -243,4 +250,4 @@ def predict():
 #    app.run(debug=True)
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+    app.run(debug=True)
