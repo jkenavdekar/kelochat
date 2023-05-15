@@ -10,6 +10,7 @@ from urllib.parse import urlparse
 from uuid import uuid4
 from scipy.spatial import distance
 
+import os
 import openai
 openai.api_key = os.environ["openai_api"]
 from scipy.spatial import distance
@@ -17,7 +18,6 @@ import pandas as pd
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 import tiktoken
 from time import sleep
-import os
 
 tokenizer = tiktoken.get_encoding('p50k_base')
 
