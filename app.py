@@ -11,9 +11,7 @@ from uuid import uuid4
 from scipy.spatial import distance
 
 import os
-import os
 import openai
-openai.api_key = os.environ["openai_api"]
 openai.api_key = os.environ["openai_api"]
 from scipy.spatial import distance
 import pandas as pd
@@ -86,11 +84,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    #return render_template('base.html')
-    message = request.args.get('message')
-    if message == None:
-        message = ''
-    return render_template('base.html', output_text=message)
+    return render_template('base.html')
 
 
 @app.route('/submit', methods=["POST"])
@@ -194,11 +188,8 @@ def submit():
         all_texts.append(c['text'])
     
     print(len(vectors), len(all_texts))
-
-    message = "Your Chatbot is now ready! Click the chat icon on bottom right to get started"
     
-    # return render_template('base.html', output_text="Your Chatbot is now ready! Click the chat icon on bottom right to get started")
-    return redirect('/?message=' + message)
+    return render_template('base.html', output_text="Your Chatbot is now ready! Click the chat icon on bottom right to get started")
 
 
 @app.route('/predict', methods=['POST'])
