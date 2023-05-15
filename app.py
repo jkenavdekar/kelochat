@@ -11,7 +11,7 @@ from uuid import uuid4
 from scipy.spatial import distance
 
 import openai
-openai.api_key = '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'
+openai.api_key = os.environ["openai_api"]
 from scipy.spatial import distance
 import pandas as pd
 from langchain.text_splitter import RecursiveCharacterTextSplitter
