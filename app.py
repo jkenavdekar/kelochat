@@ -11,7 +11,9 @@ from uuid import uuid4
 from scipy.spatial import distance
 
 import os
+import os
 import openai
+openai.api_key = os.environ["openai_api"]
 openai.api_key = os.environ["openai_api"]
 from scipy.spatial import distance
 import pandas as pd
