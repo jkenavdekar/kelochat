@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot</title>
+</head>
+<body>
+
+<div class="kelo">
+    KELO<br><br>
+    <form action="{{ url_for('submit')}}" method="post">
+        <input type="text" name="Q/A" placeholder="Enter your website url" required="required" /><br><br>
+        <button type="submit" class="btn btn-primary btn-block btn-large">Submit</button>
+    </form>
+    <br>{{output_text}}
+</div>
+
+<div class="container">
+    <div class="chatbox">
+        <div class="chatbox__support">
+            <div class="chatbox__header">
+                <div class="chatbox__image--header">
+                    <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-5--v1.png" alt="image">
+                </div>
+                <div class="chatbox__content--header">
+                    <h4 class="chatbox__heading--header">Kelo Chat support</h4>
+                    <p class="chatbox__description--header">Hi. My name is Susan. How can I help you?</p>
+                </div>
+            </div>
+            <div class="chatbox__messages">
+                <div></div>
+            </div>
+
+
+            <div class="chatbox__footer">
+                <input type="text" placeholder="Write a message...">
+                <button class="chatbox__send--footer send__button">Send</button>
+            </div>
+
+
+        </div>
+        <div class="chatbox__button">
+            <button><img src="{{ url_for('static', filename='images/kelochat.png') }}" /></button>
+            
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+
+</body>
+</html>
