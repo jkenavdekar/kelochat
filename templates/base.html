@@ -62,7 +62,7 @@
             showLoadingIndicator();
 
             $.ajax({
-                url: '/submit',
+                url: 'https://kelochat.azurewebsites.net/submit',
                 type: 'POST',
                 data: JSON.stringify({ message: message }),
                 contentType: 'application/json',
