@@ -5,16 +5,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Chatbot</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #loadingIndicator {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
 <div class="kelo">
     KELO<br><br>
-    <form action="{{ url_for('submit')}}" method="post">
-        <input type="text" name="Q/A" placeholder="Enter your website url" required="required" /><br><br>
-        <button type="submit" class="btn btn-primary btn-block btn-large">Submit</button>
-    </form>
-    <br>{{output_text}}
+    <input type="text" id="messageInput" placeholder="Enter your website url"><br><br>
+    <button id="submitButton" class="btn btn-primary btn-block btn-large">Submit</button><br><br>
+    <div id="response"></div>
+    <div id="loadingIndicator">Loading...</div>
 </div>
 
 <div class="container">
@@ -49,6 +54,38 @@
 </div>
 
 <script src="{{ url_for('static', filename='app.js') }}"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#submitButton').click(function() {
+            var message = $('#messageInput').val();
+            showLoadingIndicator();
+
+            $.ajax({
+                url: '/submit',
+                type: 'POST',
+                data: JSON.stringify({ message: message }),
+                contentType: 'application/json',
+                success: function(response) {
+                    hideLoadingIndicator();
+                    $('#response').text(response.answer);
+                },
+                error: function() {
+                    hideLoadingIndicator();
+                    $('#response').text('An error occurred.');
+                }
+            });
+        });
+    });
+
+    function showLoadingIndicator() {
+        $('#loadingIndicator').show();
+    }
+
+    function hideLoadingIndicator() {
+        $('#loadingIndicator').hide();
+    }
+</script>
 
 </body>
 </html>

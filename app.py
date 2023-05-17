@@ -89,11 +89,8 @@ def home():
 
 @app.route('/submit', methods=["POST"])
 def submit():
-    # global domain
-
-    input_url = [x for x in request.form.values()]
-
-    input_url = input_url[0]
+    
+    input_url = request.json['message']
 
     links = [input_url]
     scraped = set()
@@ -189,7 +186,7 @@ def submit():
     
     print(len(vectors), len(all_texts))
     
-    return render_template('base.html', output_text="Your Chatbot is now ready! Click the chat icon on bottom right to get started")
+    return jsonify({'answer': "Your Chatbot is now ready! Click the chat icon on bottom right to get started"})
 
 
 @app.route('/predict', methods=['POST'])
